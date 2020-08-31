@@ -8,7 +8,7 @@ public class TimeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastTime = 1;
+        lastTime = 0;
     }
 
     // Update is called once per frame
@@ -18,6 +18,20 @@ public class TimeManager : MonoBehaviour
         {
             Debug.Log(lastTime);
             lastTime++;
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            if(Time.timeScale == 0)
+            {
+                Debug.Log("Spacebar pressed");
+                Time.timeScale = 1;   
+            }
+            else
+            {
+                Debug.Log("Spacebar pressed");
+                Time.timeScale = 0;
+            }
         }
 
     }
