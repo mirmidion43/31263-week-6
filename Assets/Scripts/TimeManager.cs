@@ -6,10 +6,20 @@ public class TimeManager : MonoBehaviour
 {
     private int lastTime;
     private float timer;
+
+    [SerializeField]
+    private Transform[] transformArray;
+
+    const float moveWait = 2.0f;
+
+    Camera cam;
     // Start is called before the first frame update
     void Start()
     {
         ResetTime();
+        cam = Camera.main;
+        cam.orthographic = true;
+        cam.orthographicSize = 2.0f;
     }
 
     // Update is called once per frame
