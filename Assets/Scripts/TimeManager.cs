@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    #region fields
     private int lastTime;
     private float timer;
 
@@ -16,6 +17,10 @@ public class TimeManager : MonoBehaviour
     public GameObject blue;
 
     Camera cam;
+
+    const float scaleWait = 4.0f;
+    #endregion
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +39,7 @@ public class TimeManager : MonoBehaviour
         {
             Debug.Log(lastTime);
 
-            if(lastTime%2 == 0)
+            if(lastTime !=0 && lastTime%2 == 0)
             MoveObjects();
 
             lastTime++;
@@ -65,8 +70,10 @@ public class TimeManager : MonoBehaviour
 
     private void ResetTime()
     {
+        CancelInvoke("ScaleObjects");
         timer = 0;
         lastTime = 0;
+        InvokeRepeating("ScaleObjects", scaleWait, scaleWait);
     }
 
     private void MoveObjects()
@@ -94,5 +101,27 @@ public class TimeManager : MonoBehaviour
             blue.transform.position = pos4;
         else if(blue.transform.position == pos4)
             blue.transform.position = pos1;
+    }
+
+    private void ScaleObjects()
+    {
+        Vector3 scale;
+
+        for(int i = 0; i < 2; i++)
+        {
+        if(transformArray[i].transform.localScale.x > 1.5)
+        {
+            scale = (transformArray[i].transform.localScale)/1.2f;
+            transformArray[i].transform.localScale = scale;
+        }
+            
+        else
+        {
+            scale = (transformArray[i].transform.localScale)*1.2f;
+            transformArray[i].transform.localScale = scale; 
+        }
+               
+        }
+        
     }
 }
