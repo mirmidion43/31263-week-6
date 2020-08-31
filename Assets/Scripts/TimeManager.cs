@@ -50,6 +50,12 @@ public class TimeManager : MonoBehaviour
             ResetTime();
         }
 
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            float delay = Random.Range(0.25f, 0.75f);
+            StartCoroutine(RotateObjects(delay));
+        }
+
         #region PauseSpace
         if(Input.GetKeyDown(KeyCode.Space))
         {
@@ -122,6 +128,20 @@ public class TimeManager : MonoBehaviour
         }
                
         }
+        
+    }
+
+    IEnumerator RotateObjects(float delay)
+    {
+        for(int count = 0; count < 4; count++)
+        {
+        yield return new WaitForSeconds(delay);
+        for(int i = 0; i < 2; i++)
+            {
+                transformArray[i].transform.Rotate(0.0f, 0.0f, 90.0f);
+            }
+        }
+        
         
     }
 }
