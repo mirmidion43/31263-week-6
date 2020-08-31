@@ -5,21 +5,30 @@ using UnityEngine;
 public class TimeManager : MonoBehaviour
 {
     private int lastTime;
+    private float timer;
     // Start is called before the first frame update
     void Start()
     {
-        lastTime = 0;
+        ResetTime();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Time.time > lastTime)
+        timer += Time.deltaTime;
+
+        if(timer >= lastTime)
         {
             Debug.Log(lastTime);
             lastTime++;
         }
 
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            ResetTime();
+        }
+
+        #region PauseSpace
         if(Input.GetKeyDown(KeyCode.Space))
         {
             if(Time.timeScale == 0)
@@ -33,6 +42,13 @@ public class TimeManager : MonoBehaviour
                 Time.timeScale = 0;
             }
         }
+        #endregion
 
+    }
+
+    private void ResetTime()
+    {
+        timer = 0;
+        lastTime = 0;
     }
 }
